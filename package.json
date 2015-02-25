@@ -1,0 +1,28 @@
+{
+  "name": "wat",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard",
+    "start": "DEBUG=wat:* node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conc-at/wat.git"
+  },
+  "author": "Christoph Witzko <npm@christophwitzko.com> (http://christophwitzko.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/conc-at/wat/issues"
+  },
+  "homepage": "https://github.com/conc-at/wat",
+  "dependencies": {
+    "debug": "^2.1.1",
+    "express": "^4.12.0",
+    "socket.io": "^1.3.4"
+  },
+  "devDependencies": {
+    "standard": "*"
+  }
+}
