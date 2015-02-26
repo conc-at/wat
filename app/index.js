@@ -1,38 +1,72 @@
 require('babel/register')
 
 var React = require('react')
+var shuffle = require('lodash/collection/shuffle')
+var times = require('lodash/utility/times')
+
+var coordinates = []
+var cat = require('./cat.json').map(function (row, x) {
+  return row.map(function (fill, y) {
+    coordinates.push({x, y})
+    return {
+      fill,
+      visible: false
+    }
+  })
+})
+coordinates = shuffle(coordinates)
 
 var Pixel = React.createClass({
-  render: function () {
+  render() {
     var styles = {
       float: 'left',
-      width: 10,
-      height: 10,
-      visibility: 'visible'
+      flex: 1,
+      transition: 'opacity 0.5s ease-in',
+      opacity: this.props.visible ? '1' : '0',
+      backgroundColor: this.props.fill ? '#c50202' : 'white'
     }
 
-    return <div style={styles}>{this.props.char}</div>
+    return <div style={styles}></div>
   }
 })
 
 var Row = React.createClass({
-  render: function () {
+  render() {
     var styles = {
-      color: '#c50202',
       display: 'flex',
-      width: '100%',
-      height: 10
+      alignItems: 'stretch',
+      flex: 1
     }
 
-    var pixels = this.props.data.map(function (char) {
-      return <Pixel char={char} />
+    var pixels = this.props.data.map(function (cell) {
+      return <Pixel {... cell}/>
     })
     return <div style={styles}>{pixels}</div>
   }
 })
 
 var Screen = React.createClass({
-  render: function () {
+  componentWillMount() {
+    var self = this
+    var interval = setInterval(function () {
+      if (!coordinates.length) cancelInterval(interval)
+
+      times(200, function () {
+        var pixel = coordinates.pop()
+
+        self.state.rows[pixel.x][pixel.y].visible = true
+      })
+      self.setState(self.state)
+    }, 500)
+  },
+
+  getInitialState() {
+    return {
+      rows: cat
+    }
+  },
+
+  render() {
     var styles = {
       display: 'flex',
       flexDirection: 'column',
@@ -41,12 +75,12 @@ var Screen = React.createClass({
       overflow: 'hidden'
     }
 
-    var rows = this.props.rows.map(function (row) {
-     return <Row data={row} />
+    var rows = this.state.rows.map(function (row) {
+      return <Row data={row} />
     })
 
     return <div style={styles}>{rows}</div>
   }
 })
 
-React.render(<Screen rows={require('./cat.json')}/>, document.querySelector('body'))
+React.render(<Screen/>, document.querySelector('body'))
