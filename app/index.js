@@ -49,7 +49,7 @@ var Screen = React.createClass({
   componentWillMount() {
     var self = this
     var interval = setInterval(function () {
-      if (!coordinates.length) cancelInterval(interval)
+      if (!coordinates.length) return clearInterval(interval)
 
       times(200, function () {
         var pixel = coordinates.pop()
