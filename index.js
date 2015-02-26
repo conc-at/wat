@@ -1,4 +1,5 @@
 var http = require('http')
+var join = require('path').join
 
 var debug = require('debug')('wat:index')
 var express = require('express')
@@ -7,7 +8,9 @@ var app = express()
 var server = http.Server(app)
 var io = require('socket.io')(server)
 
-app.get('/', function (req, res) {
+app.use(express.static(join(__dirname, 'public')))
+
+app.get('/WAT', function (req, res) {
   res.send('WAT?')
 })
 
