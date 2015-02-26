@@ -31,8 +31,7 @@ var Pixel = React.createClass({
     var styles = {
       float: 'left',
       flex: 1,
-      transition: 'opacity 0.5s ease-in',
-      opacity: this.props.visible ? 1 : 0,
+      visibility: this.props.visible ? 'visible' : 'hidden',
       backgroundColor: this.props.fill ? '#c50202' : 'white'
     }
 
