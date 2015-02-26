@@ -1,3 +1,4 @@
 node_modules/
 app/cat.json
 public/bundle.js
+public/client.js

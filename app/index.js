@@ -3,6 +3,16 @@ require('babel/register')
 var React = require('react')
 var shuffle = require('lodash/collection/shuffle')
 var times = require('lodash/utility/times')
+var io = require('socket.io-client')()
+
+
+io.on('uconnect', function (data) {
+  console.log('connect')
+})
+
+io.on('udisconnect', function (data) {
+  console.log('disconnect')
+})
 
 var coordinates = []
 var cat = require('./cat.json').map(function (row, x) {
