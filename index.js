@@ -10,10 +10,6 @@ var io = require('socket.io')(server)
 
 app.use(express.static(join(__dirname, 'public')))
 
-app.get('/WAT', function (req, res) {
-  res.send('WAT?')
-})
-
 io.on('connection', function (socket) {
   io.emit('uconnect', true)
   socket.on('disconnect', function () {

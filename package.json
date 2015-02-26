@@ -8,8 +8,8 @@
     "prestart": "npm run build",
     "start": "DEBUG=socket.io:*,wat:* node index",
     "prebuild": "node lib/cat",
-    "build": "browserify app/index.js > public/bundle.js && browserify app/client.js > public/client.js",
-    "watch": "npm run prebuild && watchify app/index.js -o public/bundle.js && watchify app/client.js -o public/client.js"
+    "build": "browserify app/index.js -o public/bundle.js && browserify app/client.js -o public/client.js",
+    "watch": "watch-run -p 'app/**' npm run build"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "babelify": "^5.0.3",
     "browserify": "^9.0.3",
     "standard": "*",
-    "watchify": "^2.4.0"
+    "watch-run": "^1.2.1"
   },
   "browserify": {
     "transform": [
