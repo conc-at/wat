@@ -5,15 +5,6 @@ var shuffle = require('lodash/collection/shuffle')
 var times = require('lodash/utility/times')
 var io = require('socket.io-client')()
 
-
-io.on('uconnect', function (data) {
-  console.log('connect')
-})
-
-io.on('udisconnect', function (data) {
-  console.log('disconnect')
-})
-
 var coordinates = []
 var cat = require('./cat.json').map(function (row, x) {
   return row.map(function (fill, y) {
@@ -59,16 +50,19 @@ var Row = React.createClass({
 var Screen = React.createClass({
   componentDidMount() {
     var self = this
-    var interval = setInterval(function () {
-      if (!coordinates.length) return clearInterval(interval)
 
-      times(200, function () {
-        var pixel = coordinates.pop()
-
-        self.state.rows[pixel.x][pixel.y].visible = true
-      })
+    io.on('uconnect', function (data) {
+      console.log('connect')
+      if (!coordinates.length) return
+      times(200, self.makePixelVisible)
       self.setState(self.state)
-    }, 500)
+    })
+  },
+
+  makePixelVisible() {
+    var pixel = coordinates.pop()
+
+    this.state.rows[pixel.x][pixel.y].visible = true
   },
 
   getInitialState() {
