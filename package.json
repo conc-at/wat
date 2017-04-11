@@ -33,7 +33,7 @@
     "babel": "^6.5.2",
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
-    "standard": "*",
+    "standard": "8.5.0",
     "watch-run": "^1.2.1"
   },
   "browserify": {
