@@ -32,7 +32,7 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babelify": "^8.0.0",
-    "browserify": "^14.1.0",
+    "browserify": "^15.2.0",
     "standard": "*",
     "watch-run": "^1.2.1"
   },
